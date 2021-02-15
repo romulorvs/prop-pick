@@ -1,0 +1,24 @@
+{
+  "name": "pickprops",
+  "version": "1.0.0",
+  "description": "The easiest way to pick properties from an object",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romulorvs/doto.git"
+  },
+  "keywords": [
+    "destructuring",
+    "object",
+    "javascript"
+  ],
+  "author": "RomuloVS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/romulorvs/doto/issues"
+  },
+  "homepage": "https://github.com/romulorvs/doto#readme"
+}
