@@ -1,24 +1,26 @@
 {
   "name": "pickprops",
   "version": "1.0.0",
-  "description": "The easiest way to pick properties from an object",
+  "description": "The easiest way to filter properties from an object",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/romulorvs/doto.git"
+    "url": "git+https://github.com/romulorvs/pickprops.git"
   },
   "keywords": [
+    "pick",
+    "properties",
+    "picker",
     "destructuring",
-    "object",
-    "javascript"
+    "object"
   ],
   "author": "RomuloVS",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/romulorvs/doto/issues"
+    "url": "https://github.com/romulorvs/pickprops"
   },
-  "homepage": "https://github.com/romulorvs/doto#readme"
+  "homepage": "https://github.com/romulorvs/pickprops#readme"
 }
