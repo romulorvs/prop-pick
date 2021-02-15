@@ -1,4 +1,4 @@
-# PickProps
+# PropPick
 
 *The easiest way to filter properties from an object*
 
@@ -6,18 +6,18 @@
 // How to filter "a" and "c" from obj
 var obj = { a:1, b:2, c:3, d:4 }
 
-pickProps( ({ a, c }) => obj );
+pick( ({ a, c }) => obj );
 //=> { a:1, c:3 }
 ```
 
 ## How to Use:
-It works just like **destructuring**. Just call **pickProps()** passing a function that:
+It works just like **destructuring**. Just call **pick()** passing a function that:
 1. has a **destructred object** as an argument, and
 2. returns the object you are pickering from
 
 **Example:**
 ```js
-import pickProps from 'PickProps'
+import pick from 'prop-pick'
 
 // How to pick only name and job from a person object
 var person = {
@@ -26,7 +26,7 @@ var person = {
     job: 'Designer',
     city: 'New York'
 }
-pickProps( ({ name, job }) => person );
+pick( ({ name, job }) => person );
 //=> { name: 'John', job: 'Designer' }
 ```
 
@@ -35,13 +35,13 @@ You can also get the data as an **array**. Just set 'array' as the second parame
 **Example:**
 ```js
 // How to pick the data as an array
-pickProps( ({ name, job }) => person, 'array' );
+pick( ({ name, job }) => person, 'array' );
 //=> ['John', 'Designer']
 ```
 
 ## Other Examples
 ### Fetching Data
-***without** PickProps:*
+***without** PropPick:*
 ```js
 function fetchData(){
     const response = api.get('http://localhost:8080/person/10');
@@ -60,13 +60,13 @@ function fetchData(){
 }
 ```
 
-***using** PickProps:*
+***using** PropPick:*
 ```js
 function fetchData(){
     const response = api.get('http://localhost:8080/person/10');
 
     // getting a filtered object with the specific properties
-    const personData = pickProps( ({ name, age, height, job, city }) => response )
+    const personData = pick( ({ name, age, height, job, city }) => response )
 
     // now just use it 🤗
     setData(personData)
@@ -75,10 +75,10 @@ function fetchData(){
 
 ## How to Install
 1. Install it using npm or yarn
-    - ``npm install --save pickprops``
-    - ``yarn add pickprops``
+    - ``npm install --save prop-pick``
+    - ``yarn add prop-pick``
 2. Import it
-    - ``import pickProps from 'pickprops'``
+    - ``import pick from 'prop-pick'``
 2. Use it 😄
 
 #### That's all folks 😎
