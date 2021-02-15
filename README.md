@@ -2,7 +2,13 @@
 
 *The easiest way to filter properties from an object*
 
-**Description:** Returns a filtered copy of an object. Just pick the properties you want.
+```js
+// How to filter "a" and "c" from obj
+var obj = { a:1, b:2, c:3, d:4 }
+
+pickProps( ({ a, c }) => obj );
+//=> { a:1, c:3 }
+```
 
 ## How to Use:
 It works just like **destructuring**. Just call **pickProps()** passing a function that:
@@ -21,7 +27,7 @@ var person = {
     city: 'New York'
 }
 pickProps( ({ name, job }) => person );
-//=> { name:'John', job:'Designer' }
+//=> { name: 'John', job: 'Designer' }
 ```
 
 You can also get the data as an **array**. Just set 'array' as the second parameter
