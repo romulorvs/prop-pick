@@ -1,6 +1,6 @@
 # PropPick
 
-*The easiest way to filter properties from an object*
+*The easiest way to filter properties of an object*
 
 ```js
 // How to filter "a" and "c" from obj
@@ -11,7 +11,7 @@ pick( ({ a, c }) => obj );
 ```
 
 ## How to Use:
-It works just like **destructuring**. Just call **pick()** passing a function that:
+It works using **destructuring**. Just call **pick()** passing a function that:
 1. has a **destructred object** as an argument, and
 2. returns the object you are pickering from
 
