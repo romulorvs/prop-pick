@@ -3,7 +3,6 @@
 *The easiest way to filter properties from an object*
 
 ![npm](https://img.shields.io/npm/dm/pick-prop)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/romulorvs/prop-pick)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/prop-pick)
 ![npm](https://img.shields.io/npm/v/prop-pick)
 
