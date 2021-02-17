@@ -1,6 +1,11 @@
 # PropPick
 
-*The easiest way to filter an object properties*
+*The easiest way to filter properties from an object*
+
+![npm](https://img.shields.io/npm/dm/pick-prop?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/romulorvs/prop-pick?style=flat-square)
+![npm bundle size](https://img.shields.io/bundlephobia/min/prop-pick?style=flat-square)
+![npm](https://img.shields.io/npm/v/prop-pick?style=flat-square)
 
 ```js
 // filtering "a" and "c" from obj
@@ -10,8 +15,8 @@ pick( ({ a, c }) => obj );
 //=> { a:1, c:3 }
 ```
 
-## USAGE:
-It works using **destructuring**. Just call **pick()** passing a function that:
+## Usage:
+It works with **destructuring**. Just call **pick()** passing a function that:
 1. has a **destructred object** as an argument, and
 2. returns the object you are pickering from
 
@@ -30,12 +35,12 @@ pick( ({ name, job }) => person );
 //=> { name: 'John', job: 'Designer' }
 ```
 
-You can also get the data as an **array**. Just set 'array' as the second parameter
+You can get the data as an **array** of values. Just set "array" as the second parameter.
 
-**Example:**
+**Array Example:**
 ```js
 // returning the data as an array
-pick( ({ name, job }) => person, 'array' );
+pick( ({ name, job }) => person, "array" );
 //=> ['John', 'Designer']
 ```
 
@@ -44,9 +49,9 @@ pick( ({ name, job }) => person, 'array' );
 ***without** PropPick:*
 ```js
 function fetchData(){
-    const response = api.get('http://localhost:8080/person/10');
+    const response = api.get('http://localhost/person/');
     
-    // destructuring specific properties from and object
+    // destructuring specific properties from an object
     const { name, age, height, job, city } = response;
     
     // but now you need to pass an object with the same properties (redundancy 😩)
@@ -63,7 +68,7 @@ function fetchData(){
 ***using** PropPick:*
 ```js
 function fetchData(){
-    const response = api.get('http://localhost:8080/person/10');
+    const response = api.get('http://localhost/person/');
 
     // getting a filtered object with the specific properties
     const personData = pick( ({ name, age, height, job, city }) => response )
@@ -73,7 +78,7 @@ function fetchData(){
 }
 ```
 
-## INSTALLATION
+## Installation
 1. Install it using npm or yarn
     - ``npm install --save prop-pick``
     - ``yarn add prop-pick``
