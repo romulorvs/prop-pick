@@ -1,1 +1,124 @@
-function arrowFn(n){if(!n.includes("{")||!n.includes("}"))return null;n=n.split("{");if(!(0<n.length))return null;n=0<(n=n[1].split("}")).length?n[0].trim().split(","):null;return null===n?null:n}function normalFn(n){if(!n.includes("(")||!n.includes(")"))return null;var r=n.split("(");if(!(0<r.length))return null;r=(r=r[1].split(")"))[0].trim();if(!r)return null;var t=n.split(r);if(0===t.length)return null;for(var i=[],l=0;l<t.length;l++){var u=t[l];"."===u[0]&&(0<=(u=(u=u.substring(1)).trim()).indexOf(";")&&(u=u.substring(0,u.indexOf(";"))),0<=(u=u.trim()).indexOf(",")&&(u=u.substring(0,u.indexOf(","))),0<=(u=u.trim()).indexOf(" ")&&(u=u.substring(0,u.indexOf(" "))),(u=u.trim())&&i.push(u))}return i}function pickProps(n,r=""){if("function"!=typeof n)return null;var t=n({});if("object"!=typeof t)return null;n=n.toString();if("string"!=typeof n)return null;if(!(n=n.trim()))return null;var i=(0===n.indexOf("function")?normalFn:arrowFn)(n);if(null===i)return null;for(var l={},u=[],e=0;e<i.length;e++){var f=i[e];void 0!==t[f.trim()]&&(l[f.trim()]=t[f.trim()],u.push(t[f.trim()]))}return"array"===r?u:l}module.exports=pickProps;
+function arrowFn(strFn) {
+    if (!strFn.includes('{') || !strFn.includes('}')) {
+        return null;
+    };
+
+    var arrKeys = strFn.split('{');
+
+    if (arrKeys.length > 0) {
+        arrKeys = arrKeys[1].split('}');
+    } else {
+        return null;
+    }
+
+    var keys = arrKeys.length > 0 ? arrKeys[0].trim().split(',') : null;
+
+    if (keys === null) {
+        return null
+    };
+
+    return keys;
+}
+
+function normalFn(strFn) {
+    if (!strFn.includes('(') || !strFn.includes(')')) {
+        return null
+    };
+
+    var arrKeys = strFn.split('(');
+
+    if (arrKeys.length > 0) {
+        arrKeys = arrKeys[1].split(')');
+    } else {
+        return null;
+    }
+
+    var param = arrKeys[0].trim();
+
+    if (!param) {
+        return null;
+    };
+
+    var paramArr = strFn.split(param);
+
+    if (paramArr.length === 0) {
+        return null;
+    };
+
+    var keys = [];
+
+    for (var i = 0; i < paramArr.length; i++) {
+        var key = paramArr[i];
+
+        if (key[0] === '.') {
+            var newParam = key.substring(1);
+
+            newParam = newParam.trim();
+            if (newParam.indexOf(';') >= 0) {
+                newParam = newParam.substring(0, newParam.indexOf(';'));
+            }
+
+            newParam = newParam.trim();
+            if (newParam.indexOf(',') >= 0) {
+                newParam = newParam.substring(0, newParam.indexOf(','));
+            }
+
+            newParam = newParam.trim();
+            if (newParam.indexOf(' ') >= 0) {
+                newParam = newParam.substring(0, newParam.indexOf(' '));
+            }
+
+            newParam = newParam.trim();
+            if (newParam) {
+                keys.push(newParam);
+            }
+        }
+    }
+
+    return keys;
+}
+
+function pick(fn, type = '') {
+    if (typeof fn !== 'function') {
+        return null;
+    }
+
+    var data = fn({});
+
+    if (typeof data !== 'object') {
+        return null
+    };
+
+    var strFn = fn.toString();
+
+    if (typeof strFn !== 'string') {
+        return null
+    };
+
+    strFn = strFn.trim();
+
+    if (!strFn) {
+        return null;
+    };
+
+    var keys = strFn.indexOf('function') === 0 ? normalFn(strFn) : arrowFn(strFn);
+
+    if (keys === null) {
+        return null;
+    };
+
+    var obj = {};
+    var arr = [];
+
+    for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        if (typeof data[key.trim()] !== 'undefined') {
+            obj[key.trim()] = data[key.trim()];
+            arr.push(data[key.trim()]);
+        }
+    }
+
+    return type === 'array' ? arr : obj;
+}
+
+module.exports = pick

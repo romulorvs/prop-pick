@@ -1,14 +1,14 @@
 {
   "name": "prop-pick",
-  "version": "1.0.4",
-  "description": "The easiest way to filter properties from an object",
+  "version": "1.0.5",
+  "description": "The easiest way to filter an object properties",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/romulorvs/pickprops.git"
+    "url": "git+https://github.com/romulorvs/prop-pick.git"
   },
   "keywords": [
     "pick",
@@ -20,7 +20,7 @@
   "author": "RomuloVS",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/romulorvs/pickprops"
+    "url": "https://github.com/romulorvs/prop-pick"
   },
-  "homepage": "https://github.com/romulorvs/pickprops#readme"
+  "homepage": "https://github.com/romulorvs/prop-pick"
 }

@@ -1,6 +1,6 @@
 # PropPick
 
-*The easiest way to filter properties of an object*
+*The easiest way to filter an object properties*
 
 ```js
 // How to filter "a" and "c" from obj
@@ -19,7 +19,7 @@ It works using **destructuring**. Just call **pick()** passing a function that:
 ```js
 import pick from 'prop-pick'
 
-// How to pick only name and job from a person object
+// How to pick only "name" and "job" from a "person"
 var person = {
     name: 'John',
     age: 33,
