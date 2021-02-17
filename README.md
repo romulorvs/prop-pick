@@ -3,14 +3,14 @@
 *The easiest way to filter an object properties*
 
 ```js
-// How to filter "a" and "c" from obj
+// filtering "a" and "c" from obj
 var obj = { a:1, b:2, c:3, d:4 }
 
 pick( ({ a, c }) => obj );
 //=> { a:1, c:3 }
 ```
 
-## How to Use:
+## USAGE:
 It works using **destructuring**. Just call **pick()** passing a function that:
 1. has a **destructred object** as an argument, and
 2. returns the object you are pickering from
@@ -19,7 +19,7 @@ It works using **destructuring**. Just call **pick()** passing a function that:
 ```js
 import pick from 'prop-pick'
 
-// How to pick only "name" and "job" from a "person"
+// filtering "name" and "job" from a "person"
 var person = {
     name: 'John',
     age: 33,
@@ -34,7 +34,7 @@ You can also get the data as an **array**. Just set 'array' as the second parame
 
 **Example:**
 ```js
-// How to pick the data as an array
+// returning the data as an array
 pick( ({ name, job }) => person, 'array' );
 //=> ['John', 'Designer']
 ```
@@ -73,7 +73,7 @@ function fetchData(){
 }
 ```
 
-## How to Install
+## INSTALLATION
 1. Install it using npm or yarn
     - ``npm install --save prop-pick``
     - ``yarn add prop-pick``
