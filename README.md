@@ -2,10 +2,10 @@
 
 *The easiest way to filter properties from an object*
 
-![npm](https://img.shields.io/npm/dm/pick-prop?style=flat-square)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/romulorvs/prop-pick?style=flat-square)
-![npm bundle size](https://img.shields.io/bundlephobia/min/prop-pick?style=flat-square)
-![npm](https://img.shields.io/npm/v/prop-pick?style=flat-square)
+![npm](https://img.shields.io/npm/dm/pick-prop)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/romulorvs/prop-pick)
+![npm bundle size](https://img.shields.io/bundlephobia/min/prop-pick)
+![npm](https://img.shields.io/npm/v/prop-pick)
 
 ```js
 // filtering "a" and "c" from obj
