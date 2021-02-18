@@ -11,7 +11,7 @@
 var obj = { a:1, b:2, c:3, d:4 }
 
 pick("a c", obj);
-//=> { a:1, c:3 }
+//=> { a:1 , c:3 }
 ```
 
 ## Usage:
