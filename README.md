@@ -32,7 +32,7 @@ pick("name job", person);
 //=> { name: 'John', job: 'Designer' }
 ```
 
-You can get the data as an **array** of values. Just set 'array' as the second parameter.
+You can get the data as an **array** of values. Just set "array" as the second parameter.
 
 **Array Example:**
 ```js
