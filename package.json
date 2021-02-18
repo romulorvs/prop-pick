@@ -1,6 +1,6 @@
 {
   "name": "prop-pick",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "The easiest way to filter properties from an object",
   "main": "index.js",
   "scripts": {

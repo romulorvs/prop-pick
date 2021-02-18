@@ -7,10 +7,10 @@
 ![npm](https://img.shields.io/npm/v/prop-pick)
 
 ```js
-// filtering "a" and "c" from obj
+// filtering 'a' and 'c' from obj
 var obj = { a:1, b:2, c:3, d:4 }
 
-pick("a c", obj);
+pick('a c', obj);
 //=> { a:1 , c:3 }
 ```
 
@@ -19,25 +19,25 @@ Call **pick()** passing a string with the properties keys (separated by space) a
 
 **Example:**
 ```js
-import pick from "prop-pick"
+import pick from 'prop-pick'
 
-// filtering "name" and "job" from person
+// filtering 'name' and 'job' from person
 var person = {
-    name: "John",
+    name: 'John',
     age: 33,
-    job: "Designer",
-    city: "New York"
+    job: 'Designer',
+    city: 'New York'
 }
-pick("name job", person);
+pick('name job', person);
 //=> { name: 'John', job: 'Designer' }
 ```
 
-You can get the data as an **array** of values. Just set "array" as the second parameter.
+You can get the data as an **array** of values. Just set 'array' as the second parameter.
 
 **Array Example:**
 ```js
 // returning the data as an array
-pick("name job", person, "array");
+pick('name job', person, 'array');
 //=> ['John', 'Designer']
 ```
 
@@ -46,7 +46,7 @@ pick("name job", person, "array");
 ***without** PropPick:*
 ```js
 function fetchData(){
-    const response = api.get("http://localhost/person/");
+    const response = api.get('http://localhost/person/');
     
     // destructuring specific properties from an object
     const { name, age, height, job, city } = response;
@@ -65,10 +65,10 @@ function fetchData(){
 ***using** PropPick:*
 ```js
 function fetchData(){
-    const response = api.get("http://localhost/person/");
+    const response = api.get('http://localhost/person/');
 
     // getting a filtered object with the specific properties
-    const personData = pick("name age height job city", response)
+    const personData = pick('name age height job city', response)
 
     // now just use it 🤗
     setData(personData)
