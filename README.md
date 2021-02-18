@@ -10,34 +10,34 @@
 // filtering "a" and "c" from obj
 var obj = { a:1, b:2, c:3, d:4 }
 
-pick( ( a, c ) => obj );
+pick('a c', obj);
 //=> { a:1, c:3 }
 ```
 
 ## Usage:
-Just call **pick()** passing a function that receives the properties, as arguments, and returns the object that you're pickering from.
+Call **pick()** passing a string of properties (separated by space) and the object that you're pickering from.
 
 **Example:**
 ```js
 import pick from 'prop-pick'
 
-// filtering "name" and "job" from a "person"
+// filtering "name" and "job" from person
 var person = {
     name: 'John',
     age: 33,
     job: 'Designer',
     city: 'New York'
 }
-pick( ( name, job ) => person );
+pick('name job', person);
 //=> { name: 'John', job: 'Designer' }
 ```
 
-You can get the data as an **array** of values. Just set "array" as the second parameter.
+You can get the data as an **array** of values. Just set 'array' as the second parameter.
 
 **Array Example:**
 ```js
 // returning the data as an array
-pick( ( name, job ) => person, "array" );
+pick('name job', person, 'array');
 //=> ['John', 'Designer']
 ```
 
@@ -68,7 +68,7 @@ function fetchData(){
     const response = api.get('http://localhost/person/');
 
     // getting a filtered object with the specific properties
-    const personData = pick( ( name, age, height, job, city ) => response )
+    const personData = pick('name age height job city', response)
 
     // now just use it 🤗
     setData(personData)

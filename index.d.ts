@@ -1,0 +1,1 @@
+export default function pick(props: string, data: object, type?: string): object | array;
