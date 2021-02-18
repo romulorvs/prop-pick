@@ -10,14 +10,12 @@
 // filtering "a" and "c" from obj
 var obj = { a:1, b:2, c:3, d:4 }
 
-pick( ({ a, c }) => obj );
+pick( ( a, c ) => obj );
 //=> { a:1, c:3 }
 ```
 
 ## Usage:
-It works with **destructuring**. Just call **pick()** passing a function that:
-1. has a **destructred object** as an argument, and
-2. returns the object you are pickering from
+Just call **pick()** passing a function that receives the properties, as arguments, and returns the object that you're pickering from.
 
 **Example:**
 ```js
@@ -30,7 +28,7 @@ var person = {
     job: 'Designer',
     city: 'New York'
 }
-pick( ({ name, job }) => person );
+pick( ( name, job ) => person );
 //=> { name: 'John', job: 'Designer' }
 ```
 
@@ -39,7 +37,7 @@ You can get the data as an **array** of values. Just set "array" as the second p
 **Array Example:**
 ```js
 // returning the data as an array
-pick( ({ name, job }) => person, "array" );
+pick( ( name, job ) => person, "array" );
 //=> ['John', 'Designer']
 ```
 
@@ -70,7 +68,7 @@ function fetchData(){
     const response = api.get('http://localhost/person/');
 
     // getting a filtered object with the specific properties
-    const personData = pick( ({ name, age, height, job, city }) => response )
+    const personData = pick( ( name, age, height, job, city ) => response )
 
     // now just use it 🤗
     setData(personData)
