@@ -58,7 +58,7 @@ var business = {
     'sector one': 'office',
     'sector two': 'fabric',
     'sector three': 'shop',
-    'others': false,
+    others: false
 }
 
 pick(['sector one', 'sector three', 'others'], business);
