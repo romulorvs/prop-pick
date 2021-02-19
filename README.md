@@ -4,14 +4,13 @@
 
 ![npm](https://img.shields.io/npm/dw/prop-pick)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/prop-pick)
-![npm](https://img.shields.io/npm/v/prop-pick)
 
 ```js
 
 // filtering 'a' and 'c' from obj
 var obj = { a:1, b:2, c:3, d:4 }
 
-pick('a c', obj); // { a:1 , c:3 }
+pick('a c', obj) // { a:1 , c:3 }
 
 ```
 
@@ -30,7 +29,7 @@ var person = {
     city: 'New York'
 }
 
-pick('name job', person); // { name: 'John', job: 'Designer' }
+pick('name job', person) // { name: 'John', job: 'Designer' }
 
 ```
 
@@ -42,7 +41,7 @@ You can also get the data as an **array**. Just set 'array' as the third paramet
 
 ```js
 
-pick('name job', person, 'array'); // ['John', 'Designer']
+pick('name job', person, 'array') // ['John', 'Designer']
 
 ```
 
@@ -61,7 +60,7 @@ var business = {
     others: false
 }
 
-pick(['sector one', 'sector three', 'others'], business);
+pick(['sector one', 'sector three', 'others'], business)
 // { 'sector one': 'fabric', 'sector three': 'shop', others: false  }
 
 ```
