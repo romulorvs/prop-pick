@@ -7,18 +7,19 @@
 ![npm](https://img.shields.io/npm/v/prop-pick)
 
 ```js
+
 // filtering 'a' and 'c' from obj
 var obj = { a:1, b:2, c:3, d:4 }
 
-pick('a c', obj);
-//=> { a:1 , c:3 }
+pick('a c', obj); // { a:1 , c:3 }
+
 ```
 
 ## Usage:
-Call **pick()** passing a string with the properties keys (separated by space) and the object that you're pickering from.
+Call **pick()** passing a string with the object keys (separated by spaces) and the object that you're pickering from.
 
-**Example:**
 ```js
+
 import pick from 'prop-pick'
 
 // filtering 'name' and 'job' from person
@@ -28,51 +29,41 @@ var person = {
     job: 'Designer',
     city: 'New York'
 }
-pick('name job', person);
-//=> { name: 'John', job: 'Designer' }
+
+pick('name job', person); // { name: 'John', job: 'Designer' }
+
 ```
 
-You can get the data as an **array** of values. Just set 'array' as the second parameter.
+------------
 
-**Array Example:**
+**Returning an Array:**
+
+You can also get the data as an **array**. Just set 'array' as the third parameter.
+
 ```js
-// returning the data as an array
-pick('name job', person, 'array');
-//=> ['John', 'Designer']
+
+pick('name job', person, 'array'); // ['John', 'Designer']
+
 ```
 
-## Other Examples
-### Fetching Data
-***without** PropPick:*
+------------
+
+**Passing an Array**
+
+What if the property key has spaces? You can set the first parameter as an array of strings.
+
 ```js
-function fetchData(){
-    const response = api.get('http://localhost/person/');
-    
-    // destructuring specific properties from an object
-    const { name, age, height, job, city } = response;
-    
-    // but now you need to pass an object with the same properties (redundancy 😩)
-    setData({
-        name,
-        age,
-        height,
-        job,
-        city
-    })
+
+var business = {
+    'sector one': 'office',
+    'sector two': 'fabric',
+    'sector three': 'shop',
+    'others': false,
 }
-```
 
-***using** PropPick:*
-```js
-function fetchData(){
-    const response = api.get('http://localhost/person/');
+pick(['sector one', 'sector three', 'others'], business);
+// { 'sector one': 'fabric', 'sector three': 'shop', others: false  }
 
-    // getting a filtered object with the specific properties
-    const personData = pick('name age height job city', response)
-
-    // now just use it 🤗
-    setData(personData)
-}
 ```
 
 ## Installation
@@ -81,6 +72,4 @@ function fetchData(){
     - ``yarn add prop-pick``
 2. Import it
     - ``import pick from 'prop-pick'``
-2. Use it 😄
-
-#### That's all folks 😎
+3. Use it 😄
