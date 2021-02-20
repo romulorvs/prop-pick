@@ -12,5 +12,3 @@
 # misc
 .DS_Store
 package-lock.json
-
-test.html
