@@ -15,13 +15,13 @@ pick('a c', obj) // { a:1 , c:3 }
 ```
 
 ## Usage:
-Call **pick()** passing a string with the object keys (separated by spaces) and the object that you're pickering from.
+**pick(props, obj)** *// **props** is a **String** with the object keys (separated by **spaces** or **commas**). **obj** is the **Object** that you're filtering from*.
 
 ```js
 
 import pick from 'prop-pick'
 
-// filtering 'name' and 'job' from person
+// filtering props from person
 var person = {
     name: 'John',
     age: 33,
@@ -30,6 +30,9 @@ var person = {
 }
 
 pick('name job', person) // { name: 'John', job: 'Designer' }
+
+// you can also separate by commas
+pick('name, age, city', person) // { name: 'John', age: 33, city: 'New York' }
 
 ```
 
@@ -49,19 +52,19 @@ pick('name job', person, 'array') // ['John', 'Designer']
 
 **Passing an Array**
 
-What if the property key has spaces? You can set the first parameter as an array of strings.
+What if the property key has spaces or commas? In this situation, you can set the first parameter as an array of strings.
 
 ```js
 
 var business = {
     'sector one': 'office',
-    'sector two': 'fabric',
-    'sector three': 'shop',
+    'sector, two': 'fabric',
+    ' sector, three ': 'shop',
     others: false
 }
 
-pick(['sector one', 'sector three', 'others'], business)
-// { 'sector one': 'fabric', 'sector three': 'shop', others: false  }
+pick(['sector one', ' sector, three ', 'others'], business)
+// { 'sector one': 'fabric', ' sector, three ': 'shop', others: false  }
 
 ```
 

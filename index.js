@@ -4,9 +4,9 @@ function pick(props, data, type = '') {
   
     var obj = {};
     var arr = [];
-  
     var keys = typeof props === 'string'
-                ? props // string
+                ? props
+                    .replace(/,/g , ' ') // replacing all commas with spaces
                     .replace(/\s\s+/g, ' ') // replacing multiple spaces with only one
                     .split(' ')
                 : props; // array
