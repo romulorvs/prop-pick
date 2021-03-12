@@ -2,7 +2,7 @@
 
 *The easiest way to filter properties from an object*
 
-![npm](https://img.shields.io/npm/dw/prop-pick)
+![npm](https://img.shields.io/npm/dm/prop-pick)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/prop-pick)
 
 ```js
@@ -40,7 +40,7 @@ pick('name, age, city', person) // { name: 'John', age: 33, city: 'New York' }
 
 **Returning an Array:**
 
-You can also get the data as an **array**. Just set 'array' as the third parameter.
+You can also get the data as an **array**. Just set 'array' as the last parameter.
 
 ```js
 

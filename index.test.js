@@ -112,3 +112,121 @@ test('should return null if any paremeter has a wrong type', function(){
     var result = pick('',123.1);
     expect(result).toBe(null);
 });
+
+test('should concatenate objects', function(){
+    var result = pick('a, c',resource, arrResource);
+    expect(result).toEqual({
+        a: resource.a,
+        c: resource.c,
+        ...arrResource
+    });
+    
+    var result = pick('a, c',resource, arrResource, 'array');
+    expect(result).toEqual([
+        resource.a,
+        resource.c,
+        ...Object.values(arrResource)
+    ]);
+});
+
+test('should rename props', function(){
+
+    var result = pick('b>z',resource);
+    expect(result).toEqual({
+        z: resource.b
+    });
+
+    var result = pick('a>f b>g',resource);
+    expect(result).toEqual({
+        f: resource.a,
+        g: resource.b
+    });
+
+    var result = pick('a>f b>g, c>h',resource);
+    expect(result).toEqual({
+        f: resource.a,
+        g: resource.b,
+        h: resource.c
+    });
+
+    var result = pick('a>c b>c',resource);
+    expect(result).toEqual({
+        c: resource.b
+    });
+
+    var result = pick('a>c, b>c',resource);
+    expect(result).toEqual({
+        c: resource.b
+    });
+
+    var result = pick('b >z',resource);
+    expect(result).toEqual({
+        z: resource.b
+    });
+
+    var result = pick('a  > f b>   g  ',resource);
+    expect(result).toEqual({
+        f: resource.a,
+        g: resource.b
+    });
+
+    var result = pick('   a>f b   >g, c >   h',resource);
+    expect(result).toEqual({
+        f: resource.a,
+        g: resource.b,
+        h: resource.c
+    });
+
+    var result = pick(' a > c b > c',resource);
+    expect(result).toEqual({
+        c: resource.b
+    });
+
+    var result = pick('a > c , b > c ',resource);
+    expect(result).toEqual({
+        c: resource.b
+    });
+
+    var result = pick('a>f b>g', resource, {g: 11});
+    expect(result).toEqual({
+        f: resource.a,
+        g: 11
+    });
+
+    var result = pick('b>z',resource, 'array');
+    expect(result).toEqual([resource.b]);
+
+    var result = pick(' a  >f b>g',resource, 'array');
+    expect(result).toEqual([resource.a, resource.b]);
+
+    var result = pick('b>z',resource, arrResource);
+    expect(result).toEqual({
+        z: resource.b,
+        ...arrResource
+    });
+
+    var result = pick('a>   f b>  g   ',resource, arrResource);
+    expect(result).toEqual({
+        f: resource.a,
+        g: resource.b,
+        ...arrResource
+    });
+
+    var result = pick(' b > z ',resource, arrResource, 'array');
+    expect(result).toEqual([
+        resource.b,
+        ...Object.values(arrResource)
+    ]);
+
+    var result = pick(' a  >f b>  g  ',resource, arrResource, 'array');
+    expect(result).toEqual([
+        resource.a,
+        resource.b,
+        ...Object.values(arrResource)
+    ]);
+
+    var result = pick(' b > za > c ',resource);
+    expect(result).toEqual({
+        za: resource.b,
+    });
+});
