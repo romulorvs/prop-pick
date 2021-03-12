@@ -10,7 +10,7 @@
 // filtering 'a' and 'c' from obj
 var obj = { a:1, b:2, c:3, d:4 }
 
-pick('a c', obj) // { a:1 , c:3 }
+pick('a c', obj) //=> { a:1 , c:3 }
 
 ```
 
@@ -21,7 +21,6 @@ pick('a c', obj) // { a:1 , c:3 }
 
 import pick from 'prop-pick'
 
-// filtering props from person
 var person = {
     name: 'John',
     age: 33,
@@ -29,14 +28,16 @@ var person = {
     city: 'New York'
 }
 
-pick('name job', person) // { name: 'John', job: 'Designer' }
+// filtering 'name' and 'job' from 'person'
+pick('name job', person) //=> { name: 'John', job: 'Designer' }
 
-// you can also separate by commas
-pick('name, age, city', person) // { name: 'John', age: 33, city: 'New York' }
+// you can also separate the keys by commas
+pick('name, age, city', person) //=> { name: 'John', age: 33, city: 'New York' }
 
 ```
 
 ------------
+
 
 **Returning an Array:**
 
@@ -44,9 +45,53 @@ You can also get the data as an **array**. Just set 'array' as the last paramete
 
 ```js
 
-pick('name job', person, 'array') // ['John', 'Designer']
+pick('name job', person, 'array') //=> ['John', 'Designer']
 
 ```
+
+------------
+
+**Renaming the props:**
+
+You can rename the prop keys using a greater than sign (**>**).
+
+```js
+
+// renaming 'name' to 'firstname' and 'job' to 'occupation'
+pick(`
+    name > firstname
+    job > occupation
+`, person) //=> { firstname: 'John', occupation: 'Designer' }
+
+```
+
+------------
+
+**Concatenating another Object:**
+
+If you want to join another object to the result, you can set the third parameter as an object.
+
+```js
+
+const person = {
+    name: 'Lisa',
+    job: 'Developer',
+    age: 28
+}
+
+const location = {
+    country: 'USA',
+    state: 'California'
+}
+
+// filtering 'name' and 'age' from 'person', and joining 'location'
+pick('name age', person, location) //=> { name: 'Lisa', age: 28, country: 'USA', state: 'California' }
+
+// getting the result as an Array
+pick('name age', person, location, 'array') //=> ['Lisa', 28, 'USA', 'California']
+
+```
+*Beaware that the filtering will occur only on the object set in the second paramenter. So in the example above, only **person** will be filtered. **location** will not be.*
 
 ------------
 
@@ -64,7 +109,7 @@ var business = {
 }
 
 pick(['sector one', ' sector, three ', 'others'], business)
-// { 'sector one': 'fabric', ' sector, three ': 'shop', others: false  }
+//=> { 'sector one': 'fabric', ' sector, three ': 'shop', others: false  }
 
 ```
 

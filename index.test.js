@@ -111,6 +111,12 @@ test('should return null if any paremeter has a wrong type', function(){
 
     var result = pick('',123.1);
     expect(result).toBe(null);
+
+    var result = pick('', resource, []);
+    expect(result).toBe(null);
+
+    var result = pick('', resource, null);
+    expect(result).toBe(null);
 });
 
 test('should concatenate objects', function(){
