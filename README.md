@@ -17,7 +17,7 @@ pick('a c', obj) //=> { a:1 , c:3 }
 ```js
 const tournament = {
     result: {
-        winner: 'Anna'
+        winner: 'Anna',
         time: '01:27:32'
     },
     date: '2020-01-03',
@@ -26,11 +26,11 @@ const tournament = {
 
 // filtering 'results.time' and 'place' from tournament
 pick(`
-    results: {
+    result: {
         time
     },
     place
-`, tournament) //=> { results: { time: '01:27:32' }, place: 'Manhattan' }
+`, tournament) //=> { result: { time: '01:27:32' }, place: 'Manhattan' }
 ```
 
 ## Usage:
@@ -46,7 +46,7 @@ const person = {
     city: 'New York'
 }
 
-// filtering 'name' and 'job' from 'person'
+// filtering 'name' and 'job' from person
 pick('name job', person) //=> { name: 'John', job: 'Designer' }
 
 // you can also separate the keys by commas
@@ -62,7 +62,7 @@ pick(`
 
 **Returning an Array:**
 
-You can also get the data as an **array**. Just set 'array' as the last parameter.
+You can also get the data as an **array**. Just set **'array'** as the **last parameter**.
 
 ```js
 pick('name job', person, 'array') //=> ['John', 'Designer']
@@ -124,7 +124,7 @@ pick(`
 
 **Passing an Array**
 
-What if the property key has some special characters, likes spaces or commas? In this situation, you can set the first parameter as an array of strings.
+What if the property key has some special characters, likes spaces or commas? In this situation, you can set the **first parameter** as an **array of strings**.
 
 ```js
 const business = {
@@ -143,7 +143,7 @@ pick(['sector one', ' sector, three ', 'others'], business)
 
 **Concatenating result with other Objects:**
 
-If you want to join other objects to the result, you can set the pass the objects after the second parameter.
+If you want to join other objects to the result, you can set the **pass the objects after the second parameter**.
 
 ```js
 const person = {
