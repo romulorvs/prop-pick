@@ -16,10 +16,9 @@ pick('a c', obj) //=> { a:1 , c:3 }
 *filtering from **nested objects**:*
 ```js
 const tournament = {
-    results: {
-        top3: ['Anna', 'Beck', 'Carl'],
-        time: '01:27:32',
-        totalPlayers: 11
+    result: {
+        winner: 'Anna'
+        time: '01:27:32'
     },
     date: '2020-01-03',
     place: 'Manhattan'
@@ -123,6 +122,25 @@ pick(`
 
 ------------
 
+**Passing an Array**
+
+What if the property key has some special characters, likes spaces or commas? In this situation, you can set the first parameter as an array of strings.
+
+```js
+const business = {
+    'sector one': 'office',
+    'sector, two': 'fabric',
+    ' sector, three ': 'shop',
+    others: false
+}
+
+pick(['sector one', ' sector, three ', 'others'], business)
+//=> { 'sector one': 'fabric', ' sector, three ': 'shop', others: false  }
+```
+*Beaware that you **cannot rename the prop keys** if you are passing then in an array*
+
+------------
+
 **Concatenating result with other Objects:**
 
 If you want to join other objects to the result, you can set the pass the objects after the second parameter.
@@ -161,22 +179,9 @@ pick('name age', person, location, vehicle, 'array')
 
 ------------
 
-**Passing an Array**
-
-What if the property key has some special characters, likes spaces or commas? In this situation, you can set the first parameter as an array of strings.
-
-```js
-const business = {
-    'sector one': 'office',
-    'sector, two': 'fabric',
-    ' sector, three ': 'shop',
-    others: false
-}
-
-pick(['sector one', ' sector, three ', 'others'], business)
-//=> { 'sector one': 'fabric', ' sector, three ': 'shop', others: false  }
-```
-*Beaware that you **cannot rename the prop keys** if you are passing then in an array*
+## Return Type:
+**pick()** will return an **object** (or an **array**) if you pass the correct parameter types, and **null** if any parameter has a wrong type.
+Not found fitered keys are always **ignored** and do not throw any error.
 
 ## Installation
 1. Install it using npm or yarn
