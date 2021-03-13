@@ -24,7 +24,7 @@ const tournament = {
     place: 'Manhattan'
 }
 
-// filtering 'results.time' and 'place' from tournament
+// filtering 'result.time' and 'place' from tournament
 pick(`
     result: {
         time
