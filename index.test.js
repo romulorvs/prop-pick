@@ -224,6 +224,44 @@ test('should rename props', function(){
         ...Object.values(arrResource)
     ]);
 
+    var testeObj = {
+        qwe: 123456,
+        asd: 'testes'
+    }
+    var result = pick(' b > z ',resource, arrResource, testeObj);
+    expect(result).toEqual({
+        z: resource.b,
+        ...testeObj,
+        ...arrResource
+    });
+
+    var result = pick(' b > z ',resource, arrResource, testeObj, 'array');
+    expect(result).toEqual([
+        resource.b,
+        ...Object.values(arrResource),
+        ...Object.values(testeObj),
+    ]);
+
+    var testeObj2 = {
+        z: 555,
+        yy: 'xcvxcvxcv'
+    }
+    var result = pick(' b > z ',resource, arrResource, testeObj, testeObj2);
+    expect(result).toEqual({
+        z: testeObj2.z,
+        ...testeObj,
+        ...arrResource,
+        yy: testeObj2.yy
+    });
+
+    var result = pick(' b > z ',resource, arrResource, testeObj, testeObj2, 'array');
+    expect(result).toEqual([
+        resource.b,
+        ...Object.values(arrResource),
+        ...Object.values(testeObj),
+        ...Object.values(testeObj2),
+    ]);
+
     var result = pick(' a  >f b>  g  ',resource, arrResource, 'array');
     expect(result).toEqual([
         resource.a,

@@ -7,15 +7,15 @@
 
 ```js
 
-// filtering 'a' and 'c' from obj
 var obj = { a:1, b:2, c:3, d:4 }
 
+// filtering 'a' and 'c' from obj
 pick('a c', obj) //=> { a:1 , c:3 }
 
 ```
 
 ## Usage:
-**pick(props, obj)** *// **props** is a **String** with the object keys (separated by **spaces** or **commas**). **obj** is the **Object** that you're filtering from*.
+Just call **pick(props, obj)** passing a string with the prop key names, separated by spaces or commas, and the object that you're filtering from.
 
 ```js
 
@@ -32,7 +32,11 @@ var person = {
 pick('name job', person) //=> { name: 'John', job: 'Designer' }
 
 // you can also separate the keys by commas
-pick('name, age, city', person) //=> { name: 'John', age: 33, city: 'New York' }
+pick(`
+    name,
+    age,
+    city
+`, person) //=> { name: 'John', age: 33, city: 'New York' }
 
 ```
 
@@ -59,17 +63,18 @@ You can rename the prop keys using a greater than sign (**>**).
 
 // renaming 'name' to 'firstname' and 'job' to 'occupation'
 pick(`
-    name > firstname
-    job > occupation
-`, person) //=> { firstname: 'John', occupation: 'Designer' }
+    name > firstname,
+    job > occupation,
+    age
+`, person) //=> { firstname: 'John', occupation: 'Designer', age: 33 }
 
 ```
 
 ------------
 
-**Concatenating another Object:**
+**Concatenating result with other Objects:**
 
-If you want to join another object to the result, you can set the third parameter as an object.
+If you want to join other objects to the result, you can set the pass the objects after the second parameter.
 
 ```js
 
@@ -85,19 +90,31 @@ const location = {
 }
 
 // filtering 'name' and 'age' from 'person', and joining 'location'
-pick('name age', person, location) //=> { name: 'Lisa', age: 28, country: 'USA', state: 'California' }
+pick('name age', person, location)
+//=> { name: 'Lisa', age: 28, country: 'USA', state: 'California' }
+
+
+const vehicle = {
+    type: 'car',
+    title: 'civic'
+}
+
+// filtering 'name' and 'age' from 'person', and joining 'location'
+pick('name age', person, location, vehicle)
+//=> { name: 'Lisa', age: 28, country: 'USA', state: 'California', type: 'car', title: 'civic' }
 
 // getting the result as an Array
-pick('name age', person, location, 'array') //=> ['Lisa', 28, 'USA', 'California']
+pick('name age', person, location, vehicle, 'array')
+//=> ['Lisa', 28, 'USA', 'California', 'car', 'civic']
 
 ```
-*Beaware that the filtering will occur only on the object set in the second paramenter. So in the example above, only **person** will be filtered. **location** will not be.*
+*Beaware that the filtering will occur only on the object set in the second paramenter. So in the example above, only **person** will be filtered. **location** and **vehicle** will not be.*
 
 ------------
 
 **Passing an Array**
 
-What if the property key has spaces or commas? In this situation, you can set the first parameter as an array of strings.
+What if the property key has some special characters, likes spaces or commas? In this situation, you can set the first parameter as an array of strings.
 
 ```js
 
@@ -112,6 +129,7 @@ pick(['sector one', ' sector, three ', 'others'], business)
 //=> { 'sector one': 'fabric', ' sector, three ': 'shop', others: false  }
 
 ```
+*Beaware that you **cannot rename the prop keys** if you are passing then in an array*
 
 ## Installation
 1. Install it using npm or yarn

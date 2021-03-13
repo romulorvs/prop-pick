@@ -1,1 +1,1 @@
-export default function pick(props: string | string[], data: object, typeOrObjToConcat?: 'array' | object, type?: 'array'): object | any[];
+export default function pick(props: string | string[], data: object, ...options?: Array<object | 'array'>): object | any[];

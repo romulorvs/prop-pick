@@ -1,4 +1,4 @@
-function pick(props, data, returnTypeOrConcat = '', returnType = '') {
+function pick(props, data, ...options) {
     if (typeof props !== 'string' && !Array.isArray(props)) return null;
     if (typeof data !== 'object' || data === null || Array.isArray(data)) return null;
   
@@ -12,11 +12,36 @@ function pick(props, data, returnTypeOrConcat = '', returnType = '') {
                     .trim()
                     .split(' ')
                 : props; // array
+
+    var returnArray = false;
+    var objectsToConcat = [];
+
+    for (var optionKey in options) {
+        var currElem = options[optionKey];
+
+        if(typeof currElem === 'string' && currElem !== 'array') return null;
+        if(
+            currElem !== 'array' &&
+            (typeof currElem !== 'object' || currElem === null || Array.isArray(currElem))
+        ){
+            return null;
+        }
+
+        if(currElem === 'array' && (parseInt(optionKey) + 1) !== options.length){
+            continue;
+        }
+        
+        if(currElem === 'array'){
+            returnArray = true;
+        }else{ // when currElem is an object
+            objectsToConcat.push(currElem)
+        }
+    }
                 
     for (key in keys) {
         key = parseInt(key)
-        const beforeKey = keys[key-1];
-        const currKey = keys[key];
+        var beforeKey = keys[key-1];
+        var currKey = keys[key];
         if(
             currKey === '>' ||
             (typeof beforeKey !== 'undefined' && beforeKey === '>')
@@ -24,37 +49,34 @@ function pick(props, data, returnTypeOrConcat = '', returnType = '') {
             continue;
         }
 
-        if (typeof data[currKey] !== 'undefined') {            
-            const nextKey = keys[key+1];
-            const secondNextKey = keys[key+2];
-            if(
-                typeof nextKey !== 'undefined' &&
-                typeof secondNextKey !== 'undefined' &&
-                nextKey === '>' &&
-                secondNextKey !== '>'
-            ){
-                obj[secondNextKey] = data[currKey];
+        if (typeof data[currKey] !== 'undefined') {
+            if(returnArray){
+                arr.push(data[currKey]);
             }else{
-                obj[currKey] = data[currKey];
+                var nextKey = keys[key+1];
+                var secondNextKey = keys[key+2];
+                if(
+                    typeof nextKey !== 'undefined' &&
+                    typeof secondNextKey !== 'undefined' &&
+                    nextKey === '>' &&
+                    secondNextKey !== '>'
+                ){
+                    obj[secondNextKey] = data[currKey];
+                }else{
+                    obj[currKey] = data[currKey];
+                }
             }
-            arr.push(data[currKey]);
         }
     }
-
-    const type = typeof returnTypeOrConcat === 'string' ? returnTypeOrConcat : returnType;
     
-    if(typeof returnTypeOrConcat !== 'string'){
-        if (typeof returnTypeOrConcat !== 'object' ||
-            returnTypeOrConcat === null ||
-            Array.isArray(returnTypeOrConcat)
-        ){
-            return null;
+    if(objectsToConcat.length > 0){
+        if(returnArray){
+            arr = arr.concat(...objectsToConcat.map(obj => Object.values(obj)));
+        }else{
+            obj = Object.assign({}, obj, ...objectsToConcat);
         }
-
-        obj = Object.assign({}, obj, returnTypeOrConcat);
-        arr = arr.concat(Object.values(returnTypeOrConcat));
     }
   
-    return type === 'array' ? arr : obj;
+    return returnArray ? arr : obj;
 }
 module.exports = pick;
