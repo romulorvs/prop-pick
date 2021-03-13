@@ -5,12 +5,34 @@
 ![npm](https://img.shields.io/npm/dm/prop-pick)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/prop-pick)
 
+*filtering 'a' and 'c' from obj:*
 ```js
 
 var obj = { a:1, b:2, c:3, d:4 }
 
-// filtering 'a' and 'c' from obj
 pick('a c', obj) //=> { a:1 , c:3 }
+
+```
+
+*filtering **nested objects**:*
+```js
+
+var tournament = {
+    results: {
+        top3: ['Anna', 'Beck', 'Carl'],
+        time: '01:27:32',
+        totalPlayers: 11
+    },
+    date: '2020-01-03',
+    place: 'Manhattan'
+}
+
+pick(`
+    results: {
+        time
+    },
+    place
+`, tournament) //=> { results: { time: '01:27:32' }, place: 'Manhattan' }
 
 ```
 
@@ -89,23 +111,23 @@ const location = {
     state: 'California'
 }
 
-// filtering 'name' and 'age' from 'person', and joining 'location'
+// joining 'location' to the result
 pick('name age', person, location)
 //=> { name: 'Lisa', age: 28, country: 'USA', state: 'California' }
 
 
 const vehicle = {
-    type: 'car',
-    title: 'civic'
+    car: 'civic',
+    car_year: 2014
 }
 
-// filtering 'name' and 'age' from 'person', and joining 'location'
+// joining 'location' and 'vehicle'
 pick('name age', person, location, vehicle)
-//=> { name: 'Lisa', age: 28, country: 'USA', state: 'California', type: 'car', title: 'civic' }
+//=> { name: 'Lisa', age: 28, country: 'USA', state: 'California', car: 'civic', car_year: 2014 }
 
 // getting the result as an Array
 pick('name age', person, location, vehicle, 'array')
-//=> ['Lisa', 28, 'USA', 'California', 'car', 'civic']
+//=> ['Lisa', 28, 'USA', 'California', 'civic', 2014]
 
 ```
 *Beaware that the filtering will occur only on the object set in the second paramenter. So in the example above, only **person** will be filtered. **location** and **vehicle** will not be.*

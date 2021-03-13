@@ -205,6 +205,26 @@ test('should rename props', function(){
     var result = pick(' a  >f b>g',resource, 'array');
     expect(result).toEqual([resource.a, resource.b]);
 
+
+
+    var result = pick(`
+        a  >f,
+        b>g
+    `,resource, 'array');
+    expect(result).toEqual([resource.a, resource.b]);
+
+    var result = pick(`
+        a  >f
+        b>g
+    `,resource, 'array');
+    expect(result).toEqual([resource.a, resource.b]);
+
+    var result = pick(`
+        a > f
+        b > g
+    `,resource, 'array');
+    expect(result).toEqual([resource.a, resource.b]);
+
     var result = pick('b>z',resource, arrResource);
     expect(result).toEqual({
         z: resource.b,
@@ -274,3 +294,495 @@ test('should rename props', function(){
         za: resource.b,
     });
 });
+
+test('should filter nesting props', function(){
+    var mockNestedObj = {
+        a: 1,
+        b: {
+            ba: 1,
+            bb: 2
+        },
+        c: 3
+    }
+
+    var result = pick(`
+        a > y,
+        b: {
+            ba > x
+        },
+        b > w {
+            bb> fg
+        }
+    `, mockNestedObj);
+    
+    expect(result).toEqual({
+        b: {
+            x: mockNestedObj.b.ba
+        },
+        y: mockNestedObj.a,
+        w: {
+            fg: mockNestedObj.b.bb
+        }
+    })
+
+    var mockNestedObj = {
+        a: {
+            b: {
+                c: {
+                    d: 4,
+                    e: 5
+                }
+            }
+        },
+    }
+    var result = pick(`
+        a: {
+            b: {
+                c: {
+                    d,
+                    e
+                }
+            }
+        }
+    `, mockNestedObj);
+    expect(result).toEqual(mockNestedObj)
+
+    var mockNestedObj = {
+        a: {
+            b: {
+                f:{
+                    dfg: 123
+                },
+                c: {
+                    d: 4,
+                    e: 5
+                }
+            }
+        },
+    }
+    var result = pick(`
+        a: {
+            b: {
+                c: {
+                    e
+                    d
+                }
+                f
+            }
+        }
+    `, mockNestedObj);
+    expect(result).toEqual({
+        a: {
+            b: {
+                f:{
+                    dfg: 123
+                },
+                c: {
+                    e: 5,
+                    d: 4
+                },
+            }
+        },
+    })
+
+    var mockNestedObj = {
+        a: {
+            b: {
+                c: {
+                    d: 4,
+                    e: 5
+                }
+            },
+            f: {
+                g: 'teste'
+            },
+            h:{
+                i:{
+                    j:{
+                        k:{
+                            l: 123456
+                        },
+                        m: 10
+                    }
+                },
+                n:{
+                    o: false,
+                    p: true,
+                    q: null,
+                }
+            }
+        },
+        r: 15
+    }
+    var result = pick(`
+        a
+        r
+    `, mockNestedObj);
+    expect(result).toEqual({
+        a: {
+            b: {
+                c: {
+                    d: 4,
+                    e: 5
+                }
+            },
+            f: {
+                g: 'teste'
+            },
+            h:{
+                i:{
+                    j:{
+                        k:{
+                            l: 123456
+                        },
+                        m: 10
+                    }
+                },
+                n:{
+                    o: false,
+                    p: true,
+                    q: null,
+                }
+            }
+        },
+        r: 15
+    })
+
+    var mockNestedObj = {
+        a: {
+            b: {
+                c: {
+                    d: 4,
+                    e: 5
+                }
+            },
+            f: {
+                g: 'teste'
+            },
+            h:{
+                i:{
+                    j:{
+                        k:{
+                            l: 123456
+                        },
+                        m: 10
+                    }
+                },
+                n:{
+                    o: false,
+                    p: true,
+                    q: null,
+                }
+            }
+        },
+        r: 15
+    }
+    var result = pick(`
+        a: {
+            b: {
+                c: {
+                    d
+                    e
+                }
+            },
+            f: {
+                g
+            },
+            h:{
+                i:{
+                    j:{
+                        k:{
+                            l
+                        },
+                        m
+                    }
+                },
+                n:{
+                    o
+                    p
+                    q
+                }
+            }
+        },
+        r
+    `, mockNestedObj);
+    expect(result).toEqual({
+        a: {
+            b: {
+                c: {
+                    d: 4,
+                    e: 5
+                }
+            },
+            f: {
+                g: 'teste'
+            },
+            h:{
+                i:{
+                    j:{
+                        k:{
+                            l: 123456
+                        },
+                        m: 10
+                    }
+                },
+                n:{
+                    o: false,
+                    p: true,
+                    q: null,
+                }
+            }
+        },
+        r: 15
+    })
+
+    var mockNestedObj = {
+        a: {
+            b: {
+                c: {
+                    d: 4,
+                    e: 5
+                }
+            },
+            f: {
+                g: 'teste'
+            },
+            h:{
+                i:{
+                    j:{
+                        k:{
+                            l: 123456
+                        },
+                        m: 10
+                    }
+                },
+                n:{
+                    o: false,
+                    p: true,
+                    q: null,
+                }
+            }
+        },
+        r: 15
+    }
+    var result = pick(`
+        a {
+            b {
+                c {
+                    e>ee
+                }
+            }
+            h{
+                i{
+                    j{
+                        k{
+                            l
+                        }
+                        m
+                    }
+                }
+                n{
+                    p>pp
+                    q
+                }
+            }
+        }
+        r
+    `, mockNestedObj);
+    expect(result).toEqual({
+        a: {
+            b: {
+                c: {
+                    ee: 5
+                }
+            },
+            h:{
+                i:{
+                    j:{
+                        k:{
+                            l: 123456
+                        },
+                        m: 10
+                    }
+                },
+                n:{
+                    pp: true,
+                    q: null,
+                }
+            }
+        },
+        r: 15
+    })
+
+    var result = pick(`
+        a {
+            b {
+                c {
+                    e>ee
+                }
+            }
+            h{
+                i{
+                    j{
+                        k{
+                            l
+                        }
+                        m
+                    }
+                }
+                n{
+                    p>pp
+                    q
+                }
+
+                xcvd>cvbcvb{
+                    cvb
+                }
+            }
+        }
+        z{
+            zz{
+                xcxc
+                cvcv
+            },
+            dfdf
+        }
+    `, mockNestedObj);
+    expect(result).toEqual({
+        a: {
+            b: {
+                c: {
+                    ee: 5
+                }
+            },
+            h:{
+                i:{
+                    j:{
+                        k:{
+                            l: 123456
+                        },
+                        m: 10
+                    }
+                },
+                n:{
+                    pp: true,
+                    q: null,
+                }
+            }
+        },
+    })
+
+    var mockNestedObj = {
+        a: 1,
+        aa: {
+            aaa:{
+                xcv: 1
+            },
+            aab: 2, 
+        },
+        b: {
+            c: {
+                d: 4
+            }
+        }
+    }
+    var result = pick(`
+        a: 1,
+        aa: {
+            aab
+            aaa: {}
+        },
+        b: {
+            c
+        }
+    `, mockNestedObj);
+    expect(result).toEqual({
+        a: 1,
+        aa: {
+            aab: 2,
+            aaa: {},
+        },
+        b: {
+            c: mockNestedObj.b.c
+        }
+    })
+
+    var mockNestedObj = {
+        a: 1,
+        b: {
+            ba: 1,
+            bb: {
+                bbx: 987
+            }
+        },
+        c: 3,
+        d:{
+            e:{
+                ea: 123
+            },
+            f:{
+                ff: 55,
+                g:{
+                    h:654
+                }
+            }
+        }
+    }
+    var result = pick(`
+        a > y,
+        b: {
+            ba > x
+        },
+        b > w {
+            bb> fg
+        }
+        d{
+            f{
+                g{
+                    h
+                }
+            }
+        }
+    `, mockNestedObj, 'array');
+    expect(result).toEqual([1,1,987,654])
+
+    var tournament = {
+        results: {
+            top3: ['Anna', 'Beck', 'Carl'],
+            time: '01:27:32',
+            totalPlayers: 11
+        },
+        date: '2020-01-03',
+        place: 'Manhattan'
+    }
+    var result = pick(`
+        results: {
+            time
+        },
+        place
+    `, tournament);
+    expect(result).toEqual({
+        results: { time: '01:27:32' }, place: 'Manhattan'
+    })
+
+    var result = pick(`
+        results: {
+            top3
+        },
+        date
+    `, tournament);
+    expect(result).toEqual({
+        results: {
+            top3: ['Anna', 'Beck', 'Carl'],
+        },
+        date: '2020-01-03',
+    })
+
+    var result = pick(`
+        results: {
+            top3
+        },
+        date
+    `, tournament, 'array');
+    expect(result).toEqual(['Anna', 'Beck', 'Carl', '2020-01-03']);
+})
