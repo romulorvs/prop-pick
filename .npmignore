@@ -12,9 +12,10 @@
 # misc
 .DS_Store
 package-lock.json
+.gitignore
 
 *.test
 *.test.*
 
-yarn.lock
+/yarn.lock
 *.lock

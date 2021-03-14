@@ -13,8 +13,5 @@
 .DS_Store
 package-lock.json
 
-*.test
-*.test.*
-
-yarn.lock
+/yarn.lock
 *.lock
