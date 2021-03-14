@@ -1,7 +1,7 @@
 {
   "name": "prop-pick",
   "version": "1.4.0",
-  "description": "A tool that helps you filter properties from an object",
+  "description": "A tool that helps you filter properties from objects",
   "main": "index.js",
   "scripts": {
     "test": "jest"

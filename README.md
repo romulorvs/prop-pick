@@ -1,6 +1,6 @@
 # PropPick
 
-*A tool that helps you filter properties from an object*
+*A tool that helps you filter properties from objects*
 
 ![npm](https://img.shields.io/npm/dm/prop-pick)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/prop-pick)
