@@ -117,6 +117,15 @@ test('should return null if any paremeter has a wrong type', function(){
 
     var result = pick('', resource, null);
     expect(result).toBe(null);
+
+    var result = pick('', resource, '');
+    expect(result).toBe(null);
+
+    var result = pick('', resource, 'abc');
+    expect(result).toBe(null);
+
+    var result = pick('', resource, '', resource);
+    expect(result).toBe(null);
 });
 
 test('should concatenate objects', function(){
@@ -786,3 +795,108 @@ test('should filter nesting props', function(){
     `, tournament, 'array');
     expect(result).toEqual(['Anna', 'Beck', 'Carl', '2020-01-03']);
 })
+
+test('should unnest props', function(){
+    var mockNestedObj = {
+        a: 1,
+        b: {
+            ba: 1,
+            bb: 2
+        },
+        c: 3
+    }
+    var result = pick(`
+        a > y,
+        b: {
+            ba > x
+        },
+        b > w {
+            bb> fg
+        }
+    `, mockNestedObj, 'unnest');
+    expect(result).toEqual({
+        y: 1,
+        x: 1,
+        fg: 2
+    })
+
+    var workplace = {
+        title: 'ABC Inc.',
+        building: {
+            area: 2000,
+            location: {
+                country: 'England',
+                state: 'London'
+            }
+        },
+        history: {
+            first_CEO: 'John Doe',
+            foundation: '1982-01-01'
+        }
+    }
+    var result = pick(`
+        title,
+        building { location { country } }
+        history { first_CEO }
+    `, workplace, 'unnest');
+    expect(result).toEqual({
+        title: 'ABC Inc.',
+        country: 'England',
+        first_CEO: 'John Doe'
+    })
+
+
+    var workplace = {
+        title: 'ABC Inc.',
+        building: {
+            area: 2000,
+            location: {
+                country: 'England',
+                state: 'London'
+            }
+        },
+        history: {
+            first_CEO: 'John Doe',
+            foundation: '1982-01-01'
+        }
+    }
+    var result = pick(`
+        title > company,
+        building { location { country > location } }
+        history { first_CEO > CEO }
+    `, workplace, 'unnest');
+    expect(result).toEqual({
+        company: 'ABC Inc.',
+        location: 'England',
+        CEO: 'John Doe'
+    })
+
+
+    var result = pick(`
+        title > company,
+        building { location }
+        history { first_CEO > CEO }
+    `, workplace, 'unnest');
+    expect(result).toEqual({
+        company: 'ABC Inc.',
+        country: 'England',
+        state: 'London',
+        CEO: 'John Doe'
+    })
+
+
+    var result = pick(`
+        title > company,
+        building
+        history { first_CEO > CEO }
+    `, workplace, 'unnest');
+    expect(result).toEqual({
+        company: 'ABC Inc.',
+        area: 2000,
+        location: {
+            country: 'England',
+            state: 'London'
+        },
+        CEO: 'John Doe'
+    })
+});

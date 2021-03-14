@@ -65,6 +65,13 @@ pick(`
 To get the result as an **array**, just set **'array'** as the **last parameter**.
 
 ```js
+const person = {
+    name: 'John',
+    age: 33,
+    job: 'Designer',
+    city: 'New York'
+}
+
 pick('name job', person, 'array') //=> ['John', 'Designer']
 ```
 
@@ -75,6 +82,13 @@ pick('name job', person, 'array') //=> ['John', 'Designer']
 You are able to rename the prop keys using a greater than sign (**>**).
 
 ```js
+const person = {
+    name: 'John',
+    age: 33,
+    job: 'Designer',
+    city: 'New York'
+}
+
 // renaming 'name' to 'firstname' and 'job' to 'occupation'
 pick(`
     name > firstname,
@@ -122,6 +136,56 @@ pick(`
 
 ------------
 
+
+**Unnesting objects:**
+
+You can get the filtered props as an "unnested" one-level object by setting the **last parameter as 'unnest'**:
+
+```js
+const workplace = {
+    title: 'ABC Inc.',
+    building: {
+        area: 2000,
+        location: {
+            country: 'England',
+            state: 'London'
+        }
+    },
+    history: {
+        first_CEO: 'John Doe',
+        foundation: '1982-01-01'
+    }
+}
+
+// getting an unnested result from filtered props
+pick(`
+    title,
+    building: {
+        location: {
+            country
+        }
+    },
+    history: {
+        first_CEO
+    }
+`, workplace, 'unnest') //=> { title: 'ABC Inc.', country 'England', first_CEO: 'John Doe' }
+
+// renaming 'title' to 'company', 'country' to 'location' and 'first_CEO' to 'founder'
+pick(`
+    title > company,
+    building: {
+        location: {
+            country > location
+        }
+    },
+    history: {
+        first_CEO > founder
+    }
+`, workplace, 'unnest') //=> { company: 'ABC Inc.', location 'England', founder: 'John Doe' }
+```
+
+------------
+
 **Passing an Array**
 
 What if the property key has some special characters, likes spaces or commas? In this situation, you can set the **first parameter** as an **array of strings**.
@@ -141,7 +205,7 @@ pick(['sector one', ' sector, three ', 'others'], business)
 
 ------------
 
-**Concatenating result with other Objects:**
+**Concatenating the result with other Objects:**
 
 If you want to join other objects to the result, you can pass the objects **after the second parameter**.
 

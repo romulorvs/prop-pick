@@ -1,6 +1,14 @@
+function getRealType(val){
+    if(typeof val === 'object' && val !== null && !Array.isArray(val)) return 'object';
+    if(val === null) return 'null';
+    if(Array.isArray(val)) return 'array';
+
+    return typeof val;
+}
+
 function pick(props, data, ...options) {
-    if (typeof props !== 'string' && !Array.isArray(props)) return null;
-    if (typeof data !== 'object' || data === null || Array.isArray(data)) return null;
+    if (!(['string','array'].includes(getRealType(props)))) return null;
+    if (getRealType(data) !== 'object') return null;
   
     var keys = typeof props === 'string'
                 ? props
@@ -15,28 +23,29 @@ function pick(props, data, ...options) {
                 : props; // array
 
     var isReturningAnArray = false;
+    var isUnnesting = false;
     var objectsToConcat = [];
 
     for (var optionKey in options) {
         optionKey = parseInt(optionKey)
         var currElem = options[optionKey];
 
-        if(typeof currElem === 'string' && currElem !== 'array') return null;
+        if(typeof currElem === 'string' && currElem !== 'array' && currElem !== 'unnest') return null;
 
-        // if is neither an object or an 'array' string
-        if(currElem !== 'array' &&
-           (typeof currElem !== 'object' || currElem === null || Array.isArray(currElem))
-        ){
+        // if is neither an object or an 'array' or 'unnest' string
+        if(currElem !== 'array' && currElem !== 'unnest' && getRealType(currElem) !== 'object'){
             return null;
         }
 
-        // if is an 'array' string but is not the last element of options array
-        if(currElem === 'array' && (optionKey + 1) !== options.length){
+        // if is an 'array' or 'unnest' string but is not the last element of options array
+        if(currElem === 'array' && currElem === 'unnest' && (optionKey + 1) !== options.length){
             continue;
         }
         
         if(currElem === 'array'){
             isReturningAnArray = true;
+        }else if(currElem === 'unnest'){
+            isUnnesting = true;
         }else{ // when currElem is an object
             objectsToConcat.push(currElem)
         }
@@ -44,6 +53,7 @@ function pick(props, data, ...options) {
 
     var returnArr = [];
     var returnObj = {};
+    var returnUnnestedObj = {};
 
     var propKeysRef = [data];
     var objRef = propKeysRef[propKeysRef.length-1];
@@ -104,11 +114,20 @@ function pick(props, data, ...options) {
                     objToChange[secondNextKey] = {};
                     parentKeyToChange = secondNextKey;
                 }else{
+                    var currKeyType = getRealType(objRef[currKey])
+
                     objToChange[secondNextKey] = objRef[currKey];
+
+                    if(currKeyType === 'object'){
+                        returnUnnestedObj = {...returnUnnestedObj, ...objRef[currKey]};
+                    }else{
+                        returnUnnestedObj[secondNextKey] = objRef[currKey];
+                    }
+
                     if(isReturningAnArray){
-                        if(typeof objRef[currKey] === 'object' && objRef[currKey] !== null && !Array.isArray(objRef[currKey])){
+                        if(currKeyType === 'object'){
                             returnArr.push(...Object.values(objRef[currKey]));
-                        }else if(Array.isArray(objRef[currKey])){
+                        }else if(currKeyType === 'array'){
                             returnArr.push(...objRef[currKey]);
                         }else{
                             returnArr.push(objRef[currKey]);
@@ -122,11 +141,20 @@ function pick(props, data, ...options) {
                     objToChange[currKey] = {};
                     parentKeyToChange = currKey;
                 }else{
+                    var currKeyType = getRealType(objRef[currKey])
+
                     objToChange[currKey] = objRef[currKey];
+
+                    if(currKeyType === 'object'){
+                        returnUnnestedObj = {...returnUnnestedObj, ...objRef[currKey]};
+                    }else{
+                        returnUnnestedObj[currKey] = objRef[currKey];
+                    }
+                    
                     if(isReturningAnArray){
-                        if(typeof objRef[currKey] === 'object' && objRef[currKey] !== null && !Array.isArray(objRef[currKey])){
+                        if(currKeyType === 'object'){
                             returnArr.push(...Object.values(objRef[currKey]));
-                        }else if(Array.isArray(objRef[currKey])){
+                        }else if(currKeyType === 'array'){
                             returnArr.push(...objRef[currKey]);
                         }else{
                             returnArr.push(objRef[currKey]);
@@ -147,6 +175,8 @@ function pick(props, data, ...options) {
         }
     }
   
-    return isReturningAnArray ? returnArr : returnObj;
+    if(isReturningAnArray) return returnArr;
+
+    return isUnnesting ? returnUnnestedObj : returnObj;
 }
 module.exports = pick;
