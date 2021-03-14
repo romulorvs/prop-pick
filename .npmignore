@@ -13,4 +13,7 @@
 .DS_Store
 package-lock.json
 
+*.test
+*.test.*
+
 *.lock

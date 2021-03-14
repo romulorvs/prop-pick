@@ -62,7 +62,7 @@ pick(`
 
 **Returning an Array:**
 
-You can also get the data as an **array**. Just set **'array'** as the **last parameter**.
+To get the result as an **array**, just set **'array'** as the **last parameter**.
 
 ```js
 pick('name job', person, 'array') //=> ['John', 'Designer']
@@ -72,7 +72,7 @@ pick('name job', person, 'array') //=> ['John', 'Designer']
 
 **Renaming the props:**
 
-You can rename the prop keys using a greater than sign (**>**).
+You are able to rename the prop keys using a greater than sign (**>**).
 
 ```js
 // renaming 'name' to 'firstname' and 'job' to 'occupation'
@@ -143,7 +143,7 @@ pick(['sector one', ' sector, three ', 'others'], business)
 
 **Concatenating result with other Objects:**
 
-If you want to join other objects to the result, you can set the **pass the objects after the second parameter**.
+If you want to join other objects to the result, you can pass the objects **after the second parameter**.
 
 ```js
 const person = {
@@ -181,7 +181,7 @@ pick('name age', person, location, vehicle, 'array')
 
 ## Return Type:
 **pick()** will return an **object** (or an **array**) if you pass the correct parameter types, and **null** if any parameter has a wrong type.
-Not found fitered keys are always **ignored** and do not throw any error.
+Not found keys are always **ignored** and do not throw any error.
 
 ## Installation
 1. Install it using npm or yarn
