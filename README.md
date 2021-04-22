@@ -2,7 +2,7 @@
 
 *A tool that helps you filter properties from objects*
 
-![npm](https://img.shields.io/github/downloads/romulorvs/prop-pick/total)
+![npm](https://img.shields.io/npm/dt/prop-pick.svg)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/prop-pick)
 
 *filtering from **non-nested objects**:*
